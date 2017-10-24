@@ -38,12 +38,12 @@ if( !defined('ABSPATH') ){ exit; }
 if( !function_exists('rtepd_create_draft_from_image') ){
 
 	function rtepd_create_draft_from_image( $id ) {
-
-		if( wp_attachment_is_image( $id ) ){
-			// get the attachement's post object
-			$image = get_post( $id );
-			// get the EXIF data if PHP has support enabled
-			if( function_exists( 'exif_read_data' ) ){
+		// check if PHP support for EXIF data is enabled
+		if( function_exists( 'exif_read_data' ) ){
+			// check if the attachment is an image
+			if( wp_attachment_is_image( $id ) ){
+				// get the attachement's post object
+				$image = get_post( $id );
 				// read all the EXIF data
 				$exif = exif_read_data( $image->guid );
 				// check if the original date is set (capture time)
